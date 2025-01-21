@@ -4,7 +4,7 @@ import org.juanrobledo.springsecurityapp.persistence.entity.PermissionEntity;
 import org.juanrobledo.springsecurityapp.persistence.entity.RoleEntity;
 import org.juanrobledo.springsecurityapp.persistence.entity.RoleEnum;
 import org.juanrobledo.springsecurityapp.persistence.entity.UserEntity;
-import org.juanrobledo.springsecurityapp.persistence.repository.UserRepository;
+import org.juanrobledo.springsecurityapp.persistence.repository.UserEntityRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +21,7 @@ public class SpringSecurityAppApplication {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository userRepository) {
+    CommandLineRunner init(UserEntityRepository userEntityRepository) {
         return args -> {
             /* CREATE PERMISSIONS */
             PermissionEntity permissionEntity1 = PermissionEntity.builder()
@@ -88,7 +88,7 @@ public class SpringSecurityAppApplication {
                     .roles(Set.of(roleInvited))
                     .build();
 
-            userRepository.saveAll(List.of(userJuan, userSantiago, userAgustin));
+            userEntityRepository.saveAll(List.of(userJuan, userSantiago, userAgustin));
         };
     }
 }

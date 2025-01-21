@@ -68,33 +68,36 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setUserDetailsService(userDetailsService());
+      //authenticationProvider.setUserDetailsService();//Para tener Usuarios en memoria
+        authenticationProvider.setUserDetailsService(userDetailsService);
         return authenticationProvider;
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
+    //En vez de traer los usuarios de la base de datos se usan usuarios en memoria
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//
+//
+//        List<UserDetails> userDetailsList = new ArrayList<UserDetails>();
+//        userDetailsList.add(User.withUsername("juan")  //Spring valida los usuarios a traves de este objeto
+//                .password("1234")
+//                .roles("ADMIN")
+//                .authorities("READ","WRITE") //No es lo mismo los persmisos que los roles
+//                .build());
+//
+//        userDetailsList.add(User.withUsername("santiago")  //Spring valida los usuarios a traves de este objeto
+//                .password("1234")
+//                .roles("USER")
+//                .authorities("READ","CREATE") //No es lo mismo los persmisos que los roles
+//                .build());
+//
+//        return new InMemoryUserDetailsManager(userDetailsList);
+//    }
 
 
-        //En vez de traer los usuarios de la base de datos se usan usuarios en memoria
-        List<UserDetails> userDetailsList = new ArrayList<UserDetails>();
-        userDetailsList.add(User.withUsername("juan")  //Spring valida los usuarios a traves de este objeto
-                .password("1234")
-                .roles("ADMIN")
-                .authorities("READ","WRITE") //No es lo mismo los persmisos que los roles
-                .build());
-
-        userDetailsList.add(User.withUsername("santiago")  //Spring valida los usuarios a traves de este objeto
-                .password("1234")
-                .roles("USER")
-                .authorities("READ","CREATE") //No es lo mismo los persmisos que los roles
-                .build());
-
-        return new InMemoryUserDetailsManager(userDetailsList);
-    }
 
 
     @Bean
